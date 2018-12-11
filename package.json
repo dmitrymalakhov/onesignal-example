@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "docker:build": "docker build -t onesignal-example .",
+    "docker:clean": "docker rm -f onesignal-example || true",
+    "docker:run": "docker run -p 7878:3000 -d --name onesignal-example onesignal-example && npm run docker:logs",
+    "docker:stop": "docker stop onesignal-example",
+    "docker:start": "docker start onesignal-example && npm run docker:logs",
+    "docker:logs": "docker logs -f onesignal-example",
+    "deploy": "npm run docker:build && npm run docker:clean && npm run docker:run"
   },
   "author": "",
   "license": "ISC",
